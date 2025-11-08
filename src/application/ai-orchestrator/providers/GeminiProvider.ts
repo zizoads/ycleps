@@ -1,0 +1,56 @@
+
+import { GoogleGenAI } from '@google/genai';
+import { AiProviderPort } from './AiProviderPort';
+import { AiProviderOptions, AiResponse } from '../types';
+
+export class GeminiProvider implements AiProviderPort {
+  public readonly providerName = 'Gemini';
+  private ai: GoogleGenAI | null = null;
+  private apiKey: string | undefined;
+
+  constructor(apiKey?: string) {
+    this.apiKey = apiKey;
+  }
+
+  private getAiInstance(): GoogleGenAI {
+    if (this.ai) {
+      return this.ai;
+    }
+    if (!this.apiKey) {
+      throw new Error("Gemini API key is missing. Please ensure it is configured in your environment.");
+    }
+    this.ai = new GoogleGenAI({ apiKey: this.apiKey });
+    return this.ai;
+  }
+
+  async call(prompt: string, options?: AiProviderOptions): Promise<AiResponse> {
+    const startTime = Date.now();
+    try {
+      const ai = this.getAiInstance();
+      const response = await ai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: prompt,
+      });
+
+      const latencyMs = Date.now() - startTime;
+      
+      return {
+        content: response.text,
+        providerUsed: this.providerName,
+        latencyMs,
+        success: true,
+      };
+    } catch (error) {
+      const latencyMs = Date.now() - startTime;
+      console.error('Error calling Gemini API:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown Gemini API error';
+      return {
+        content: '',
+        providerUsed: this.providerName,
+        latencyMs,
+        success: false,
+        error: errorMessage,
+      };
+    }
+  }
+}

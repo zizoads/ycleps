@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Yclep AI Product Analysis Platform - Rebuilt for Stability"
+    />
+    <title>Yclep AI Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'media', // or 'class'
+        theme: {
+          extend: {}
+        },
+        plugins: [
+            require('@tailwindcss/forms'),
+            require('@tailwindcss/typography'),
+        ],
+      }
+    </script>
+    <style>
+      /* Simple loader to show something is happening before React mounts */
+      #root:empty::before {
+        content: "Loading Yclep Platform...";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: sans-serif;
+        font-size: 1.5rem;
+        color: #6b7280;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "uuid": "https://aistudiocdn.com/uuid@^13.0.0",
+    "marked": "https://aistudiocdn.com/marked@^17.0.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <!-- 
+      This script provides a 'process.env' shim required by the @google/genai SDK.
+      It MUST be placed here, before the main application script.
+     -->
+    <script>
+      window.process = {
+        env: {
+          API_KEY: ""
+        }
+      };
+    </script>
+
+    <!-- Main application entry point -->
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

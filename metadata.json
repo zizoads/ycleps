@@ -1,0 +1,5 @@
+{
+  "name": "Yclep AI Product Analysis Platform",
+  "description": "A comprehensive project implementing Clean Architecture with React and TypeScript. It features an AI Orchestrator with multiple agents and failover policies to analyze products, leveraging the Gemini API for content generation, SEO analysis, and more.",
+  "requestFramePermissions": []
+}
