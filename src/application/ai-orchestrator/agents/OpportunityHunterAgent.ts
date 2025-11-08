@@ -29,6 +29,7 @@ export class OpportunityHunterAgent {
         
         // This agent is strategic and needs the latest info, so we use Gemini directly with search grounding
         try {
+             // FIX: Property 'process' does not exist on type 'Window & typeof globalThis'.
              const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
              const response = await ai.models.generateContent({
                 model: 'gemini-2.5-flash',

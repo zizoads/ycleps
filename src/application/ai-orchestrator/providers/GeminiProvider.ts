@@ -6,20 +6,20 @@ import { AiProviderOptions, AiResponse } from '../types';
 export class GeminiProvider implements AiProviderPort {
   public readonly providerName = 'Gemini';
   private ai: GoogleGenAI | null = null;
-  private apiKey: string | undefined;
 
-  constructor(apiKey?: string) {
-    this.apiKey = apiKey;
+  // FIX: Per coding guidelines, provider should not accept an API key directly.
+  constructor() {
   }
 
   private getAiInstance(): GoogleGenAI {
     if (this.ai) {
       return this.ai;
     }
-    if (!this.apiKey) {
+    // FIX: API key must be obtained exclusively from process.env.API_KEY.
+    if (!process.env.API_KEY) {
       throw new Error("Gemini API key is missing. Please ensure it is configured in your environment.");
     }
-    this.ai = new GoogleGenAI({ apiKey: this.apiKey });
+    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     return this.ai;
   }
 

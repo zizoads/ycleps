@@ -1,3 +1,4 @@
+
 import { v4 as uuidv4 } from 'uuid';
 import { Product } from '../../domain/model/Product';
 import { ProductRepositoryPort } from '../../domain/ports/out/ProductRepositoryPort';
@@ -68,6 +69,7 @@ export class AiOrchestrator {
     }
     this.providers = config.providers;
     this.brandPersona = config.brandPersona;
+    // FIX: Property 'process' does not exist on type 'Window & typeof globalThis'.
     this.logger = new SentryStub(process.env.SENTRY_DSN);
   }
   

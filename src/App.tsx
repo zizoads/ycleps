@@ -37,7 +37,8 @@ function App() {
     'Friendly, helpful, and slightly tech-savvy. Aims to simplify complex topics.'
   );
   const [aiProviders, setAiProviders] = useState<AiProviderPort[]>([
-    new GeminiProvider(process.env.API_KEY),
+    // FIX: Corrected GeminiProvider instantiation and removed window.process.
+    new GeminiProvider(),
     new FallbackProvider(),
   ]);
 
